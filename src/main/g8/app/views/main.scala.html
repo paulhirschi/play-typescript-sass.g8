@@ -1,0 +1,52 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/index.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script type='text/javascript' src='@routes.Assets.versioned("lib/systemjs/dist/system-polyfills.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("lib/systemjs/dist/system.src.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("lib/core-js/client/shim.min.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("lib/zone.js/dist/zone.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("lib/reflect-metadata/Reflect.js")'></script>
+        <!-- <script type='text/javascript' src='@routes.Assets.versioned("app/index.js")'></script> -->
+        <script> 
+          // our app is downloaded as individual javascript files by SystemJs after compilation by sbt-typescript
+          var map = {
+            'app': 'assets/app',
+            'rxjs':'assets/lib/rxjs',
+            'symbol-observable': 'assets/lib/symbol-observable'
+          };
+          var packages = {
+            'app': {main: 'index.js', defaultExtension: 'js'},
+            'rxjs': {defaultExtension: 'js'},
+            'assets/lib': {defaultExtension: 'js'},
+            'symbol-observable': {defaultExtension: 'js', main: 'index.js'}
+          };
+
+          System.config({
+            map : map,
+            packages: packages
+          });
+          // SystemJs works out which other modules our app module depends on and will download and load them
+          System.import('app')
+            .catch(console.error.bind(console));
+      </script>
+
+    </head>
+    <body>
+        @* And here's where we render the `Html` object containing
+         * the page content. *@
+        @content
+
+    </body>
+</html>

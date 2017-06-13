@@ -1,11 +1,11 @@
-name := """sampleApp"""
-organization := "com.phirschi"
+name := """$name$"""
+organization := "$organization$"
 
-version := "1.0-SNAPSHOT"
+version := "$version$"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.11"
+scalaVersion := "$scala_version$"
 
 libraryDependencies ++= {
   Seq(

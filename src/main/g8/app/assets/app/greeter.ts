@@ -4,6 +4,6 @@ export class Greeter {
         this.greeting = message
     }
     public greet() {
-        return `Hello, ${this.greeting}`
+        return 'Hello, ' + this.greeting
     }
 }
